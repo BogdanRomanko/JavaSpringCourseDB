@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/groups")
+@RequestMapping("https://spring-db-course.herokuapp.com/groups")
 public class GroupsController {
 
     private com.example.kursovoi.service.GroupsService groupsService = new GroupsService();

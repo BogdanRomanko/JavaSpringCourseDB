@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("https://spring-db-course.herokuapp.com//workers")
+@RequestMapping("https://spring-db-course.herokuapp.com/workers")
 public class WorkersController {
 
     private com.example.kursovoi.service.WorkersService workersService = new WorkersService();

@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("https://spring-db-course.herokuapp.com")
+@RequestMapping("/")
 public class MainController {
 
-    @GetMapping("https://spring-db-course.herokuapp.com")
+    @GetMapping("")
     public ResponseEntity mainPage(){
         try {
             return ResponseEntity.ok().body("Главная страница");

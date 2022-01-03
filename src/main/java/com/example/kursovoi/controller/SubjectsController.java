@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("https://spring-db-course.herokuapp.com/subjects")
+@RequestMapping("/subjects")
 public class SubjectsController {
 
     private com.example.kursovoi.service.SubjectsService subjectsService = new SubjectsService();

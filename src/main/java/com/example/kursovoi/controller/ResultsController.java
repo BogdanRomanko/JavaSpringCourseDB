@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.Date;
 
 @RestController
-@RequestMapping("https://spring-db-course.herokuapp.com/results")
+@RequestMapping("/results")
 public class ResultsController {
 
     private com.example.kursovoi.service.ResultsService resultsService = new ResultsService();

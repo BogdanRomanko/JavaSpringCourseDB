@@ -21,7 +21,7 @@ public class WorkersController {
     }
 
     @GetMapping("/get")
-    public ResponseEntity getOneWorker(@RequestParam Long id) {
+    public ResponseEntity getOneWorker(@RequestParam("id") Long id) {
         try {
             return ResponseEntity.ok().body(workersService.getWorker(id));
         } catch (Exception e) {
@@ -30,7 +30,7 @@ public class WorkersController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity deleteWorker(@RequestParam Long id) {
+    public ResponseEntity deleteWorker(@RequestParam("id") Long id) {
         try {
             workersService.deleteWorker(id);
             return ResponseEntity.ok().body("Работник удалён");
@@ -40,7 +40,10 @@ public class WorkersController {
     }
 
     @PutMapping("/edit")
-    public ResponseEntity editWorker(@RequestParam Long id, String name, Long dep_id, String role) {
+    public ResponseEntity editWorker(@RequestParam("id") Long id,
+                                     @RequestParam("name") String name,
+                                     @RequestParam("dep_id") Long dep_id,
+                                     @RequestParam("role") String role) {
         try {
             Workers newWorker = new Workers(id, name, dep_id, role);
             workersService.editWorker(id, newWorker);
@@ -51,7 +54,9 @@ public class WorkersController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity addWorker(@RequestParam String name, Long dep_id, String role) {
+    public ResponseEntity addWorker(@RequestParam("name") String name,
+                                    @RequestParam("id") Long dep_id,
+                                    @RequestParam("role") String role) {
         try {
             Workers newWorker = new Workers(name, dep_id, role);
             workersService.addWorker(newWorker);

@@ -21,7 +21,7 @@ public class SubjectsController {
     }
 
     @GetMapping("/get")
-    public ResponseEntity getSubject(@RequestParam Long id) {
+    public ResponseEntity getSubject(@RequestParam("id") Long id) {
         try {
             return ResponseEntity.ok().body(subjectsService.getSubject(id));
         } catch (Exception e) {
@@ -30,7 +30,7 @@ public class SubjectsController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity deleteSubject(@RequestParam Long id) {
+    public ResponseEntity deleteSubject(@RequestParam("id") Long id) {
         try {
             subjectsService.deleteSubject(id);
             return ResponseEntity.ok().body("Дисциплина удалена");
@@ -40,7 +40,10 @@ public class SubjectsController {
     }
 
     @PutMapping("/edit")
-    public ResponseEntity editSubject(@RequestParam Long id, String title, Long teacher_id, Long is_exam) {
+    public ResponseEntity editSubject(@RequestParam("id") Long id,
+                                      @RequestParam("title") String title,
+                                      @RequestParam("teacher_id") Long teacher_id,
+                                      @RequestParam("is_exam") Long is_exam) {
         try {
             Subjects subject = new Subjects(id, title, teacher_id, is_exam);
             subjectsService.editSubject(id, subject);
@@ -51,7 +54,9 @@ public class SubjectsController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity addSubject(@RequestParam String title, Long teacher_id, Long is_exam) {
+    public ResponseEntity addSubject(@RequestParam("title") String title,
+                                     @RequestParam("teacher_id") Long teacher_id,
+                                     @RequestParam("is_exam") Long is_exam) {
         try {
             Subjects newSubject = new Subjects(title, teacher_id, is_exam);
             subjectsService.addSubject(newSubject);

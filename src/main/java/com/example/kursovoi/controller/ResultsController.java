@@ -23,7 +23,7 @@ public class ResultsController {
     }
 
     @GetMapping("/get")
-    public ResponseEntity getResult(@RequestParam Long id) {
+    public ResponseEntity getResult(@RequestParam("id") Long id) {
         try {
             return ResponseEntity.ok().body(resultsService.getResult(id));
         } catch (Exception e) {
@@ -32,7 +32,7 @@ public class ResultsController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity deleteResult(@RequestParam Long id) {
+    public ResponseEntity deleteResult(@RequestParam("id") Long id) {
         try {
             resultsService.deleteResult(id);
             return ResponseEntity.ok().body("Результат удалён");
@@ -42,7 +42,15 @@ public class ResultsController {
     }
 
     @PutMapping("/edit")
-    public ResponseEntity editResult(@RequestParam Long id, Long statement_id, Date date, Long classroom, Long group_id, Long subject_id, Long teacher_id, Long student_id, Long value) {
+    public ResponseEntity editResult(@RequestParam("id") Long id,
+                                     @RequestParam("statement_id") Long statement_id,
+                                     @RequestParam("date") Date date,
+                                     @RequestParam("classroom") Long classroom,
+                                     @RequestParam("group_id") Long group_id,
+                                     @RequestParam("subject_id") Long subject_id,
+                                     @RequestParam("teacher_id") Long teacher_id,
+                                     @RequestParam("student_id") Long student_id,
+                                     @RequestParam("value") Long value) {
         try {
             Results newResult = new Results(id, statement_id, date, classroom, group_id, subject_id, teacher_id, student_id, value);
             resultsService.editResult(id, newResult);
@@ -53,7 +61,14 @@ public class ResultsController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity addResult(@RequestParam Long statement_id, Date date, Long classroom, Long group_id, Long subject_id, Long teacher_id, Long student_id, Long value) {
+    public ResponseEntity addResult(@RequestParam("statement_id") Long statement_id,
+                                    @RequestParam("date") Date date,
+                                    @RequestParam("classroom") Long classroom,
+                                    @RequestParam("group_id") Long group_id,
+                                    @RequestParam("subject_id") Long subject_id,
+                                    @RequestParam("teacher_id") Long teacher_id,
+                                    @RequestParam("student_id") Long student_id,
+                                    @RequestParam("value") Long value) {
         try {
             Results result = new Results(statement_id, date, classroom, group_id, subject_id, teacher_id, student_id, value);
             resultsService.addResult(result);

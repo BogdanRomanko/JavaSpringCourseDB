@@ -21,7 +21,7 @@ public class DepartmentsController {
     }
 
     @GetMapping("/get")
-    public ResponseEntity getOneDepartment(@RequestParam Long id) {
+    public ResponseEntity getOneDepartment(@RequestParam("id") Long id) {
         try {
             return ResponseEntity.ok().body(departmentsService.getDepartment(id));
         } catch (Exception e) {
@@ -30,7 +30,7 @@ public class DepartmentsController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity deleteDepartment(@RequestParam Long id) {
+    public ResponseEntity deleteDepartment(@RequestParam("id") Long id) {
         try {
             departmentsService.deleteDepartment(id);
             return ResponseEntity.ok().body("Кафедра удалена");
@@ -40,7 +40,9 @@ public class DepartmentsController {
     }
 
     @PutMapping("/edit")
-    public ResponseEntity editDepartment(@RequestParam Long id, String title, Long head_id) {
+    public ResponseEntity editDepartment(@RequestParam("id") Long id,
+                                         @RequestParam("title") String title,
+                                         @RequestParam("head_id") Long head_id) {
         try {
             Departments newDepartment = new Departments(id, title, head_id);
             departmentsService.editDepartment(id, newDepartment);
@@ -51,7 +53,8 @@ public class DepartmentsController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity addWorker(@RequestParam String title, Long head_id) {
+    public ResponseEntity addWorker(@RequestParam("title") String title,
+                                    @RequestParam("head_id") Long head_id) {
         try {
             Departments department = new Departments(title, head_id);
             departmentsService.addDepartment(department);

@@ -21,7 +21,7 @@ public class AttestationController {
     }
 
     @GetMapping("/get")
-    public ResponseEntity getAttestation(@RequestParam Long id) {
+    public ResponseEntity getAttestation(@RequestParam("id") Long id) {
         try {
             return ResponseEntity.ok().body(attestationService.getAttestation(id));
         } catch (Exception e) {
@@ -30,7 +30,7 @@ public class AttestationController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity deleteAttestation(@RequestParam Long id) {
+    public ResponseEntity deleteAttestation(@RequestParam("id") Long id) {
         try {
             attestationService.deleteAttestation(id);
             return ResponseEntity.ok().body("Аттестация удалена");
@@ -40,7 +40,11 @@ public class AttestationController {
     }
 
     @PutMapping("/edit")
-    public ResponseEntity editAttestation(@RequestParam Long id, Long subject_id, Long group_id, Long student_id, Long value) {
+    public ResponseEntity editAttestation(@RequestParam("id") Long id,
+                                          @RequestParam("subject_id") Long subject_id,
+                                          @RequestParam("group_id") Long group_id,
+                                          @RequestParam("student_id") Long student_id,
+                                          @RequestParam("value") Long value) {
         try {
             Attestation newAttestation = new Attestation(id, subject_id, group_id, student_id, value);
             attestationService.editAttestation(id, newAttestation);
@@ -51,7 +55,10 @@ public class AttestationController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity addAttestation(@RequestParam Long subject_id, Long group_id, Long student_id, Long value) {
+    public ResponseEntity addAttestation(@RequestParam("subject_id") Long subject_id,
+                                         @RequestParam("group_id") Long group_id,
+                                         @RequestParam("student_id") Long student_id,
+                                         @RequestParam("value") Long value) {
         try {
             Attestation attestation = new Attestation(subject_id, group_id, student_id, value);
             attestationService.addAttestation(attestation);

@@ -21,7 +21,7 @@ public class GroupsController {
     }
 
     @GetMapping("/get")
-    public ResponseEntity getGroup(@RequestParam Long id) {
+    public ResponseEntity getGroup(@RequestParam("id") Long id) {
         try {
             return ResponseEntity.ok().body(groupsService.getGroup(id));
         } catch (Exception e) {
@@ -30,7 +30,7 @@ public class GroupsController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity deleteGroup(@RequestParam Long id) {
+    public ResponseEntity deleteGroup(@RequestParam("id") Long id) {
         try {
             groupsService.deleteGroup(id);
             return ResponseEntity.ok().body("Группа удалена");
@@ -40,7 +40,14 @@ public class GroupsController {
     }
 
     @PutMapping("/edit")
-    public ResponseEntity editGroup(@RequestParam Long id, String title, Long dep_id, Long praepostor_id, Long sum_year, String direction_on_study, Long curator_id, Long size) {
+    public ResponseEntity editGroup(@RequestParam("id") Long id,
+                                    @RequestParam("title") String title,
+                                    @RequestParam("dep_id") Long dep_id,
+                                    @RequestParam("praepostor_id") Long praepostor_id,
+                                    @RequestParam("sum_year") Long sum_year,
+                                    @RequestParam("direction_on_study") String direction_on_study,
+                                    @RequestParam("curator_id") Long curator_id,
+                                    @RequestParam("size") Long size) {
         try {
             Groups Groups = new Groups(id, title, dep_id, praepostor_id, sum_year, direction_on_study, curator_id, size);
             groupsService.editGroup(id, Groups);
@@ -51,7 +58,13 @@ public class GroupsController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity addGroup(@RequestParam String title, Long dep_id, Long praepostor_id, Long sum_year, String direction_on_study, Long curator_id, Long size) {
+    public ResponseEntity addGroup(@RequestParam("title") String title,
+                                   @RequestParam("dep_id") Long dep_id,
+                                   @RequestParam("praepostor_id") Long praepostor_id,
+                                   @RequestParam("sum_year") Long sum_year,
+                                   @RequestParam("direction_on_study") String direction_on_study,
+                                   @RequestParam("curator_id") Long curator_id,
+                                   @RequestParam("size") Long size) {
         try {
             Groups newGroups = new Groups(title, dep_id, praepostor_id, sum_year, direction_on_study, curator_id, size);
             groupsService.addGroup(newGroups);

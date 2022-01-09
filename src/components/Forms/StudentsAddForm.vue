@@ -1,0 +1,127 @@
+<template>
+  <b-form inline @click.prevent="addStudent">
+    <label class="sr-only" for="name">Имя</label>
+    <b-form-input
+      id="name"
+      v-model="form_data.name"
+      class="mb-2 mr-sm-2 mb-sm-0"
+      placeholder="Введите имя"
+    ></b-form-input>
+
+    <b-form-select
+      id="group_id"
+      v-model="form_data.group_id"
+      class="mb-2 mr-sm-2 mb-sm-0"
+      :options="group_options"
+      :value="null"
+    ></b-form-select>
+
+    <b-form-select
+      id="dep_id"
+      v-model="form_data.dep_id"
+      class="mb-2 mr-sm-2 mb-sm-0"
+      :options="dep_options"
+      :value="null"
+    ></b-form-select>
+
+    <label class="sr-only" for="dir_st">Форма обучения</label>
+    <b-form-input
+      id="type_of_training"
+      v-model="form_data.type_of_training"
+      class="mb-2 mr-sm-2 mb-sm-0"
+      placeholder="Введите форму обучения"
+    ></b-form-input>
+
+    <b-form-select
+      id="is_budget"
+      v-model="form_data.is_budget"
+      class="mb-2 mr-sm-2 mb-sm-0"
+      :options="budget_options"
+      :value="null"
+    ></b-form-select>
+
+    <b-form-select
+      id="is_praestor"
+      v-model="form_data.is_praestor"
+      class="mb-2 mr-sm-2 mb-sm-0"
+      :options="praestor_options"
+      :value="null"
+    ></b-form-select>
+
+    <input type="submit" value="Добавить" class="btn btn-dark">
+  </b-form>
+</template>
+
+<script>
+
+import axios from "axios"
+
+export default {
+  name: "students",
+  data() {
+    return {
+      dep_options: [ 
+        { value: null, text: 'Выберите кафедру' },
+      ],
+      group_options: [ 
+        { value: null, text: 'Выберите группу' },
+      ],
+      praestor_options: [
+        { value: null, text: 'Является старостой группы' },
+        { value: 0, text: 'Нет' },
+        { value: 1, text: 'Да' }
+      ],
+      budget_options: [
+        { value: null, text: 'На бюджете' },
+        { value: 0, text: 'Нет' },
+        { value: 1, text: 'Да' }
+      ],
+      form_data: {
+        name: "",
+        group_id: null,
+        dep_id: null,
+        type_of_training: "",
+        is_budget: null,
+        is_praestor: null
+      }
+    }
+  },
+  async mounted() {
+    const deps = await axios.get("https://spring-db-course.herokuapp.com/departments/getAllDepartments")
+    deps.data.forEach(item => {
+        this.dep_options.push({value: item.id, text: item.title})
+    })
+
+    const groups = await axios.get("https://spring-db-course.herokuapp.com/groups/getAllGroups")
+    groups.data.forEach(item => {
+        this.group_options.push({value: item.id, text: item.title})
+    })
+  },
+  methods: {
+    async addStudent() {
+      try{
+        if (this.form_data.name === "" || this.form_data.dep_id === null || this.form_data.group_id === null
+            || this.form_data.is_budget === null || this.form_data.is_praestor === "" || this.form_data.type_of_training === "")
+          return
+
+        const form = new FormData()
+        form.append("name", this.form_data.name)
+        form.append("group_id", this.form_data.group_id)
+        form.append("dep_id", this.form_data.dep_id)
+        form.append("type_of_tr", this.form_data.type_of_training)
+        form.append("is_budget", this.form_data.is_budget)
+        form.append("is_praestor", this.form_data.is_praestor)
+
+        const res = await axios.post("https://spring-db-course.herokuapp.com/students/add", form)
+      } catch (e) {
+        console.log(e)
+      }
+      this.$emit("onAddData")
+    }
+  }
+}
+</script>
+
+
+<style scoped>
+</style>

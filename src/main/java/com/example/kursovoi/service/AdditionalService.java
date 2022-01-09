@@ -24,8 +24,8 @@ public class AdditionalService {
 
             while (rs.next()) {
                 HashMap<String, Object> row = new HashMap<>();
-                row.put("name", rs.getString(2));
-                row.put("title", rs.getString(3));
+                row.put("name", rs.getString(1));
+                row.put("title", rs.getString(2));
                 result.add(row);
             }
 
@@ -35,7 +35,7 @@ public class AdditionalService {
 
             return result;
         } catch (Exception ev) {
-            throw new Exception("Произошла ошибка");
+            throw new Exception(ev.getMessage());
         }
     }
 
@@ -64,7 +64,7 @@ public class AdditionalService {
 
             return result;
         } catch (Exception ev) {
-            throw new Exception("Произошла ошибка");
+            throw new Exception(ev.getMessage());
         }
     }
 
@@ -93,7 +93,7 @@ public class AdditionalService {
 
             return result;
         } catch (Exception ev) {
-            throw new Exception("Произошла ошибка");
+            throw new Exception(ev.getMessage());
         }
     }
 
@@ -122,7 +122,7 @@ public class AdditionalService {
 
             return result;
         } catch (Exception ev) {
-            throw new Exception("Произошла ошибка");
+            throw new Exception(ev.getMessage());
         }
     }
 

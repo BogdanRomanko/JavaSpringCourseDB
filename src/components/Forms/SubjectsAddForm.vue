@@ -34,6 +34,11 @@ import axios from "axios"
 
 export default {
   name: "subjects",
+  props: {
+    called_func: {
+      required: false
+    }
+  },
   data() {
     return {
       teacher_options: [ 
@@ -70,10 +75,13 @@ export default {
         form.append("is_exam", this.form_data.is_exam)
 
         const res = await axios.post("https://spring-db-course.herokuapp.com/subjects/add", form)
+        this.form_data.title = ""
+        this.form_data.teacher_id = null
+        this.form_data.is_exam = null
       } catch (e) {
         console.log(e)
       }
-      this.$emit("onAddData")
+      await this.called_func()
     }
   }
 }

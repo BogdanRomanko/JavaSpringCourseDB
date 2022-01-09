@@ -20,8 +20,8 @@
       </template>
 
     </b-table>
-    <component :is="form_component" @onAddData="reload"/>
-    <component :is="edit_form_component" :edit_id="this.edit_id"/>
+    <component :is="form_component" :called_func="called_func" @onAddData="reload"/>
+    <component :is="edit_form_component" :called_func="called_func" :edit_id="this.edit_id"/>
 
 </div>
 </template>
@@ -43,6 +43,9 @@ export default {
     },
     edit_form_component: {
       required: true
+    },
+    called_func: {
+      required: true
     }
   },
   data() {
@@ -55,9 +58,6 @@ export default {
     }
   },
   methods: {
-      async reload() {
-        this.$forceUpdate()
-      },
       editItem(edit_id) {
         this.edit_id = edit_id
       },

@@ -33,6 +33,11 @@ import axios from "axios"
 
 export default {
   name: "workers",
+  props: {
+    called_func: {
+      required: false
+    }
+  },
   data() {
     return {
         options: [ 
@@ -61,13 +66,15 @@ export default {
         form.append("name", this.form_data.worker_name)
         form.append("id", this.form_data.dep_id)
         form.append("role", this.form_data.role)
-        console.log(this.form_data)
 
         const res = await axios.post("https://spring-db-course.herokuapp.com/workers/add", form)
+        this.form_data.worker_name = ""
+        this.form_data.dep_id = null
+        this.form_data.role = ""
       } catch (e) {
         console.log(e)
       }
-      this.$emit("onAddData")
+      await this.called_func()
     }
   }
 }

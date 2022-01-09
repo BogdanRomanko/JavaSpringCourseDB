@@ -45,6 +45,11 @@ import axios from "axios"
 
 export default {
   name: "attestation",
+  props: {
+    called_func: {
+      required: false
+    }
+  },
   data() {
     return {
       group_options: [ 
@@ -93,10 +98,14 @@ export default {
         form.append("value", this.form_data.value)
 
         const res = await axios.post("https://spring-db-course.herokuapp.com/attestation/add", form)
+        this.form_data.group_id = null
+        this.form_data.student_id = null
+        this.form_data.subject_id = null
+        this.form_data.value = null
       } catch (e) {
         console.log(e)
       }
-      this.$emit("onAddData")
+      await this.called_func()
     }
   }
 }

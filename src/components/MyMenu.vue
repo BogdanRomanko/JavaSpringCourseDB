@@ -49,7 +49,7 @@ export default {
   data() {
     return {
       fields: [],
-      items: [],
+      items: []
     }
   },
   methods: {
@@ -95,8 +95,10 @@ export default {
         fields: this.fields,
         items: this.items,
         form_component: WorkersAddForm,
-        edit_form_component: ModalEditWorkers
+        edit_form_component: ModalEditWorkers,
+        called_func: this.getAllWorkers
       })
+      return {fields: this.fields, items: this.items}
     },
     async getAllDepartments() {
       const data = await axios.get("https://spring-db-course.herokuapp.com/departments/getAllDepartments")
@@ -135,8 +137,10 @@ export default {
         fields: this.fields,
         items: this.items,
         form_component: DepartmentsAddForm,
-        edit_form_component: ModalEditDepartments
+        edit_form_component: ModalEditDepartments,
+        called_func: this.getAllDepartments
       })
+      return {fields: this.fields, items: this.items}
     },
     async getAllGroups() {
       const data = await axios.get("https://spring-db-course.herokuapp.com/groups/getAllGroups")
@@ -211,8 +215,10 @@ export default {
         fields: this.fields,
         items: this.items,
         form_component: GroupsAddForm,
-        edit_form_component: ModalEditGroups
+        edit_form_component: ModalEditGroups,
+        called_func: this.getAllGroups
       })
+      return {fields: this.fields, items: this.items}
     },
     async getAllStudents() {
       const data = await axios.get("https://spring-db-course.herokuapp.com/students/getAllStudents")
@@ -285,8 +291,10 @@ export default {
         fields: this.fields,
         items: this.items,
         form_component: StudentsAddForm,
-        edit_form_component: ModalEditStudents
+        edit_form_component: ModalEditStudents,
+        called_func: this.getAllStudents
       })
+      return {fields: this.fields, items: this.items}
     },
     async getAllSubjects() {
       const data = await axios.get("https://spring-db-course.herokuapp.com/subjects/getAllSubjects")
@@ -335,8 +343,10 @@ export default {
         fields: this.fields,
         items: this.items,
         form_component: SubjectsAddForm,
-        edit_form_component: ModalEditSubjects
+        edit_form_component: ModalEditSubjects,
+        called_func: this.getAllSubjects
       })
+      return {fields: this.fields, items: this.items}
     },
     async getAllAttestations(){
       const data = await axios.get("https://spring-db-course.herokuapp.com/attestation/getAllAttestations")
@@ -397,8 +407,10 @@ export default {
         fields: this.fields,
         items: this.items,
         form_component: AttestationsAddForm,
-        edit_form_component: ModalEditAttestations
+        edit_form_component: ModalEditAttestations,
+        called_func: this.getAllAttestations
       })
+      return {fields: this.fields, items: this.items}
     },
     async getAllResults() {
       const data = await axios.get("https://spring-db-course.herokuapp.com/results/getAllResults")
@@ -485,8 +497,10 @@ export default {
         fields: this.fields,
         items: this.items,
         form_component: ResultsAddForm,
-        edit_form_component: ModalEditResults
+        edit_form_component: ModalEditResults,
+        called_func: this.getAllResults
       })
+      return {fields: this.fields, items: this.items}
     },
     async getAllPraestors() {
       const data = await axios.get("https://spring-db-course.herokuapp.com/additional/praestors")

@@ -40,6 +40,9 @@ export default {
         edit_id: {
             required: true
         },
+        called_func: {
+            required: true
+        }
     },
     data() {
         return {
@@ -82,6 +85,7 @@ export default {
 
             const res = await axios.put("https://spring-db-course.herokuapp.com/workers/edit", form)
             this.is_edited = false
+            await this.called_func()
         },
         hidden() {
             this.is_edited = false

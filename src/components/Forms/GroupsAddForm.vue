@@ -68,6 +68,11 @@ import axios from "axios"
 
 export default {
   name: "groups",
+  props: {
+    called_func: {
+      required: false
+    }
+  },
   data() {
     return {
       dep_options: [ 
@@ -124,10 +129,17 @@ export default {
         form.append("size", this.form_data.size)
 
         const res = await axios.post("https://spring-db-course.herokuapp.com/groups/add", form)
+        this.form_data.title = ""
+        this.form_data.dep_id = null
+        this.form_data.praestor_id = null
+        this.form_data.sum = null
+        this.form_data.dir_st = ""
+        this.form_data.curator_id = null
+        this.form_data.size = null
       } catch (e) {
         console.log(e)
       }
-      this.$emit("onAddData")
+      await this.called_func()
     }
   }
 }

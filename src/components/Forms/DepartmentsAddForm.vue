@@ -26,6 +26,11 @@ import axios from "axios"
 
 export default {
   name: "departments",
+  props: {
+    called_func: {
+      required: false
+    }
+  },
   data() {
     return {
       options: [ 
@@ -54,10 +59,12 @@ export default {
         form.append("head_id", this.form_data.head_id)
 
         const res = await axios.post("https://spring-db-course.herokuapp.com/departments/add", form)
+        this.form_data.title = ""
+        this.form_data.head_id = null
       } catch (e) {
         console.log(e)
       }
-      this.$emit("onAddData")
+      await this.called_func()
     }
   }
 }

@@ -8,6 +8,7 @@
     :items="items" 
     :form_component="form_component"
     :edit_form_component="edit_form_component"
+    :called_func="called_func"
     v-if="this.fields.length != 0 && !this.is_additional"
     @onDeleteItem="deleteItem"
   />
@@ -36,7 +37,8 @@ export default {
       items: [],
       form_component: null,
       edit_form_component: null,
-      is_additional: false
+      is_additional: false,
+      called_func: null
     }
   },
   methods: {
@@ -46,9 +48,11 @@ export default {
       this.form_component = result.form_component
       this.edit_form_component = result.edit_form_component
       this.is_additional = result.is_additional
+      this.called_func = result.called_func
     },
     async deleteItem(result) {
       const res = await axios.delete(`https://spring-db-course.herokuapp.com/${result.table}/delete?id=${result.id}`)
+      const reload = await this.called_func()
     }
   }
 }

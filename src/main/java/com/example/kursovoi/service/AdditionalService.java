@@ -75,7 +75,7 @@ public class AdditionalService {
             SQLConfig config = new SQLConfig();
             Connection connection = config.getConnection();
 
-            String query = "SELECT s.full_name, g.title FROM students s INNER JOIN groups g ON (is_budget = 1);";
+            String query = "SELECT s.full_name, g.title FROM students s LEFT JOIN groups g ON (s.group_id = g.id) WHERE s.is_budget = 1;";
 
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(query);
@@ -104,7 +104,7 @@ public class AdditionalService {
             SQLConfig config = new SQLConfig();
             Connection connection = config.getConnection();
 
-            String query = "SELECT s.full_name, g.title FROM students s INNER JOIN groups g ON (is_budget = 0);";
+            String query = "SELECT s.full_name, g.title FROM students s LEFT JOIN groups g ON (s.group_id = g.id) WHERE s.is_budget = 0;";
 
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(query);

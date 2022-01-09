@@ -17,13 +17,13 @@ public class AdditionalService {
             SQLConfig config = new SQLConfig();
             Connection connection = config.getConnection();
 
-            String query = "SELECT s.full_name, g.title FROM students s INNER JOIN groups g ON (s.id = g.praepostor_id);";
+            String query = "SELECT s.full_name, g.title FROM students s INNER JOIN groups g ON (g.praepostor_id = s.id)";
 
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(query);
-            HashMap<String, Object> row = new HashMap<>();
 
             while (rs.next()) {
+                HashMap<String, Object> row = new HashMap<>();
                 row.put("name", rs.getString(2));
                 row.put("title", rs.getString(3));
                 result.add(row);
@@ -50,9 +50,9 @@ public class AdditionalService {
 
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(query);
-            HashMap<String, Object> row = new HashMap<>();
 
             while (rs.next()) {
+                HashMap<String, Object> row = new HashMap<>();
                 row.put("title", rs.getString(1));
                 row.put("full_name", rs.getString(2));
                 result.add(row);
@@ -79,9 +79,9 @@ public class AdditionalService {
 
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(query);
-            HashMap<String, Object> row = new HashMap<>();
 
             while (rs.next()) {
+                HashMap<String, Object> row = new HashMap<>();
                 row.put("full_name", rs.getString(1));
                 row.put("title", rs.getString(2));
                 result.add(row);
@@ -108,9 +108,9 @@ public class AdditionalService {
 
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(query);
-            HashMap<String, Object> row = new HashMap<>();
 
             while (rs.next()) {
+                HashMap<String, Object> row = new HashMap<>();
                 row.put("full_name", rs.getString(1));
                 row.put("title", rs.getString(2));
                 result.add(row);
